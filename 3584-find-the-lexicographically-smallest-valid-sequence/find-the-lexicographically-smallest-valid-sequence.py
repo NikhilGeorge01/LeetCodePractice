@@ -2,7 +2,7 @@ class Solution:
     def validSequence(self, word1: str, word2: str) -> List[int]:
         m = len(word2)
         n = len(word1)
-        last = [-1 for _ in range(len(word2))]
+        last = [-1 for i in range(len(word2))]
         j = m - 1
         for i in range(n -1, -1, -1):
             if j < 0:
