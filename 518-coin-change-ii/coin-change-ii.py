@@ -3,7 +3,7 @@ class Solution:
         dp = [0 for i in range(amount+1)]
         dp[-1] = 1
         for i in range(len(coins)):
-            for j in range(len(dp) - 1, -1, -1):
+            for j in range(len(dp) - coins[i], -1, -1):
                 a = j + coins[i]
                 if a >= len(dp):
                     a = 0
