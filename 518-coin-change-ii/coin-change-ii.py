@@ -1,15 +1,14 @@
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
-        @cache
-        def dfs(i,cur):
-            if i >= len(coins):
-                if amount == cur:
-                    return 1
+        dp = [0 for i in range(amount+1)]
+        dp[-1] = 1
+        for i in range(len(coins)):
+            temp = dp.copy()
+            for j in range(len(dp) - 1, -1, -1):
+                a = j + coins[i]
+                if a >= len(dp):
+                    a = 0
                 else:
-                    return 0
-            if cur > amount:
-                return 0
-            choose = dfs(i, cur + coins[i])
-            reject = dfs(i+1, cur)
-            return choose + reject
-        return dfs(0,0)
+                    a = dp[j + coins[i]]
+                dp[j] = a + temp[j]
+        return dp[0]
