@@ -1,14 +1,11 @@
 class Solution:
     def longestPalindromeSubseq(self, s: str) -> int:
-        @cache
-        def dfs(l,r):
-            if l > r:
-                return 0
-            if s[l] == s[r]:
-                if l == r:
-                    return 1 + dfs(l+1,r-1)
+        reverse = s[::-1]
+        dp = [[0 for i in range(len(s) + 1)] for j in range(len(s) + 1)]
+        for i in range(1,len(s) + 1):
+            for j in range(1,len(s) + 1):
+                if s[i-1] == reverse[j-1]:
+                    dp[i][j] = max(dp[i-1][j], dp[i][j-1], 1 + dp[i-1][j-1])
                 else:
-                    return  2 + dfs(l+1,r-1)
-            else:
-                return max(dfs(l+1,r), dfs(l,r-1))
-        return dfs(0,len(s) - 1)
+                    dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+        return dp[-1][-1]
